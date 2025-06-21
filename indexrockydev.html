@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADVANCE PANEL</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+  <style>
+    :root {
+      /* Changed to emphasize cyan */
+      --bg-gradient-start: #ffffff; /* White background start */
+      --bg-gradient-end: #f0f0f0;   /* Slightly off-white background end */
+      --primary-gradient-start: #00bcd4; /* Cyan */
+      --primary-gradient-end: #00e5ff;   /* Lighter Cyan */
+      --accent-color: #00ffff; /* Bright Cyan */
+      --text-color: #333333; /* Darker text for white background */
+      --neutral-border-color: rgba(0, 0, 0, 0.1); /* Darker border for white background */
+      --box-shadow-subtle: rgba(0, 0, 0, 0.2); 
+      --box-shadow-highlight: rgba(0, 255, 255, 0.15); /* Cyan glow, adjusted for white background */
+      --card-bg: rgba(255, 255, 255, 0.9); /* Slightly transparent white card */
+      --nav-bg: rgba(0, 0, 0, 0.5); 
+
+      /* Icon Specific Colors - adjusted for cyan theme */
+      --icon-login: #00e5ff; 
+      --icon-period: #6A5ACD; 
+      --icon-timer: #32CD32; 
+      --icon-prediction: #1E90FF; 
+      --icon-jackpot: #FF4500; 
+      --icon-history: #A9A9A9;
+      --icon-info: #ADD8E6;
+      --icon-nav-inactive: rgba(255, 255, 255, 0.4); 
+      --icon-nav-active: var(--accent-color); 
+      --icon-admin: var(--accent-color); 
+      --icon-key-gen: var(--primary-gradient-start);
+      --icon-list-check: var(--primary-gradient-end);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'El Messiri', sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-bottom: 20px;
+    }
+
+    h1 {
+      margin-top: 25px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      background: linear-gradient(90deg, var(--primary-gradient-start), var(--primary-gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(0, 255, 255, 0.3); /* Cyan glow, subtle on white */
+      letter-spacing: 1.5px;
+      text-align: center;
+      padding: 0 10px;
+    }
+
+    .container {
+      margin-top: 25px;
+      padding: 35px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      backdrop-filter: blur(10px); /* Less blur for white background */
+      box-shadow: 0 8px 30px var(--box-shadow-subtle), 0 0 15px var(--box-shadow-highlight); 
+      border: 1px solid var(--neutral-border-color);
+      width: 90%;
+      max-width: 550px; 
+      box-sizing: border-box;
+    }
+
+    input, button, select, .flatpickr-input {
+      padding: 16px;
+      margin: 12px 0;
+      border-radius: 12px;
+      border: 1px solid var(--neutral-border-color);
+      width: 100%;
+      font-size: 17px;
+      background: rgba(0, 0, 0, 0.05); /* Slightly darker input background */
+      color: var(--text-color);
+      outline: none;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+
+    input::placeholder {
+      color: rgba(0, 0, 0, 0.4); /* Darker placeholder for white background */
+    }
+
+    input:focus, select:focus, .flatpickr-input:focus {
+      border-color: rgba(0, 255, 255, 0.4); 
+      box-shadow: 0 0 8px rgba(0, 255, 255, 0.2); 
+    }
+
+    button {
+      background: linear-gradient(90deg, var(--primary-gradient-start), var(--primary-gradient-end));
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.3); 
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #fff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    button.secondary-btn {
+        background: rgba(0, 0, 0, 0.1); /* Darker secondary button for white background */
+        color: var(--text-color);
+        box-shadow: none;
+    }
+
+    button.secondary-btn:hover {
+        background: rgba(0, 0, 0, 0.15);
+    }
+
+    button:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 12px rgba(0, 255, 255, 0.4); 
+    }
+
+    h2 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--primary-gradient-end); /* Slightly darker cyan for headings */
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      text-shadow: 0 0 8px rgba(0, 255, 255, 0.3); 
+    }
+    
+    h2 .ri-icon {
+        font-size: 1.8rem;
+        color: var(--primary-gradient-end);
+    }
+
+    h2 .ri-admin-fill { color: var(--icon-admin); }
+    h2 .ri-key-2-fill { color: var(--icon-key-gen); }
+    h2 .ri-list-check { color: var(--icon-list-check); }
+
+    .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 1.1rem;
+        color: var(--primary-gradient-start); /* Cyan label color */
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      font-size: 0.95rem; 
+      background: rgba(0, 0, 0, 0.03); /* Subtle background for table */
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Lighter shadow for white background */
+    }
+
+    th, td {
+      padding: 12px; 
+      border: 1px solid var(--neutral-border-color);
+      text-align: center;
+      vertical-align: middle;
+      word-break: break-word; 
+    }
+
+    th {
+      background: rgba(0, 0, 0, 0.1); /* Darker header background */
+      color: var(--text-color);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    tr:nth-child(even) {
+      background: rgba(0, 0, 0, 0.01);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      flex-wrap: wrap; 
+    }
+
+    .action-buttons button {
+      padding: 8px 10px;
+      font-size: 0.8rem;
+      margin: 0; 
+      width: auto; 
+      border-radius: 8px;
+      display: inline-flex; 
+      align-items: center;
+      gap: 5px;
+      box-shadow: none; 
+    }
+    
+    .action-buttons button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 5px rgba(0, 255, 255, 0.2); 
+    }
+
+    .action-buttons .ri-icon {
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    .action-buttons button.delete-btn {
+        background: #dc3545; 
+        color: #fff; /* Ensure text is white on red */
+    }
+    .action-buttons button.reset-btn {
+        background: #ffc107; 
+        color: #333; /* Dark text on yellow */
+    }
+    .action-buttons button.copy-btn {
+        background: #17a2b8; 
+        color: #fff; /* Ensure text is white on cyan */
+    }
+
+    /* Flatpickr overrides for light theme with cyan accents */
+    .flatpickr-calendar {
+        background: #ffffff;
+        border: 1px solid var(--neutral-border-color);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        color: var(--text-color);
+    }
+    .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.selected.inRange, .flatpickr-day.startRange.inRange, .flatpickr-day.endRange.inRange, .flatpickr-day.selected:focus, .flatpickr-day.startRange:focus, .flatpickr-day.endRange:focus, .flatpickr-day.selected:hover, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover, .flatpickr-day.selected.prevMonthDay, .flatpickr-day.startRange.prevMonthDay, .flatpickr-day.endRange.prevMonthDay, .flatpickr-day.selected.nextMonthDay, .flatpickr-day.startRange.nextMonthDay, .flatpickr-day.endRange.nextMonthDay {
+        background: linear-gradient(90deg, var(--primary-gradient-start), var(--primary-gradient-end)); 
+        border-color: var(--primary-gradient-start);
+        color: #fff;
+    }
+    .flatpickr-day.today {
+        border-color: var(--accent-color);
+        color: var(--text-color); /* Ensure today's date is visible */
+    }
+    .flatpickr-day.today:hover {
+        background: var(--accent-color);
+        color: #fff; /* Text white on hover */
+    }
+    .flatpickr-day.inRange {
+        background: rgba(0, 255, 255, 0.1); 
+        border-color: rgba(0, 255, 255, 0.1);
+        color: var(--text-color);
+    }
+    .flatpickr-day.flatpickr-disabled, .flatpickr-day.flatpickr-disabled:hover, .flatpickr-day.prevMonthDay, .flatpickr-day.nextMonthDay {
+        color: rgba(0, 0, 0, 0.3); /* Lighter gray for disabled/prev/next month days */
+    }
+    .flatpickr-months .flatpickr-prev-month, .flatpickr-months .flatpickr-next-month {
+        color: var(--primary-gradient-start); /* Cyan arrows */
+    }
+    .flatpickr-current-month .flatpickr-monthDropdown-months, .flatpickr-current-month .numInputWrapper {
+        color: var(--text-color);
+    }
+    .flatpickr-current-month .flatpickr-monthDropdown-months:hover {
+        background: rgba(0, 0, 0, 0.05); /* Subtle hover for dropdown */
+    }
+    span.flatpickr-weekday {
+        color: rgba(0, 0, 0, 0.6); /* Darker weekdays */
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .container {
+        padding: 25px;
+        max-width: 95%; 
+      }
+      h2 {
+          font-size: 1.5rem;
+      }
+      .action-buttons button {
+          font-size: 0.7rem;
+          padding: 6px 8px;
+      }
+      .action-buttons .ri-icon {
+        font-size: 0.9rem;
+      }
+      table th, table td {
+          padding: 8px;
+          font-size: 0.85rem;
+      }
+      input, button, select, .flatpickr-input {
+          font-size: 15px;
+          padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h1>🔑 ADVANCE PANEL</h1>
+
+<div class="container" id="adminLoginBox">
+    <h2><i class="ri-admin-fill ri-icon"></i> Admin Login</h2>
+    <p style="color: red; font-weight: bold; text-align: center;">
+        WARNING: This admin login is client-side only and INSECURE for production.
+    </p>
+    <input type="password" id="adminPasswordInput" placeholder="Enter Admin Password">
+    <button onclick="adminLogin()"><i class="ri-key-line"></i> Access Admin</button>
+    <p style="text-align: center; margin-top: 20px;">
+        <a href="index.html" class="secondary-btn" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;"><i class="ri-user-line"></i> Back to User App</a>
+    </p>
+</div>
+
+<div class="container" id="adminPanel" style="display:none;">
+    <h2><i class="ri-key-2-fill ri-icon"></i> Manage Keys</h2>
+    <div class="form-group">
+        <label for="newKeyInput">Key Value:</label>
+        <input type="text" id="newKeyInput" placeholder="Leave empty for auto-generate">
+        <button class="secondary-btn" onclick="generateRandomKey()"><i class="ri-magic-line"></i> Generate Random</button>
+    </div>
+    <div class="form-group">
+        <label for="expiryDatePicker">Expiry Date:</label>
+        <input type="text" id="expiryDatePicker" placeholder="Select Expiry Date">
+    </div>
+    <div class="form-group">
+        <label for="deviceLimitSelect">Allowed Devices:</label>
+        <select id="deviceLimitSelect">
+            <option value="single">1 Device</option>
+            <option value="multiple">All Devices</option>
+        </select>
+        <p style="font-size: 0.85rem; color: rgba(0,0,0,0.6); margin-top: 5px; text-align: left;">
+            Note: "All Devices" means no session limit. For "2 Devices" limit, advanced backend logic is required.
+        </p>
+    </div>
+    <button onclick="createNewKey()"><i class="ri-add-line"></i> Create New Key</button>
+
+    <h2 style="margin-top: 40px;"><i class="ri-list-check ri-icon"></i> All Generated Keys</h2>
+    <table id="keysTable">
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Expiry</th>
+                <th>Devices</th>
+                <th>User UID</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="keysTableBody">
+            <tr><td colspan="5">Loading keys...</td></tr>
+        </tbody>
+    </table>
+    <button onclick="adminLogout()" style="margin-top: 30px;"><i class="ri-logout-box-r-line"></i> Admin Logout</button>
+</div>
+
+
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+  // Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCXnib_9ItsLIsVDdgpOZsfX9uUfS5R4gc",
+    authDomain: "test2-56638.firebaseapp.com",
+    projectId: "test2-56638",
+    storageBucket: "test2-56638.firebasestorage.app",
+    // No messagingSenderId or appId in your new config, so removed.
+    // If you need them for other Firebase services, you'll need to add them back.
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+  const keysRef = database.ref('accessKeys');
+  const userSessionsRef = database.ref('userSessions'); // Reference for user sessions
+
+  // Admin password
+  const adminPassword = "AGENTMONUZZ";
+
+  // Initialize Flatpickr for the expiry date picker
+  let expiryFlatpickr = null;
+
+  window.onload = function() {
+    expiryFlatpickr = flatpickr("#expiryDatePicker", {
+      enableTime: true,
+      dateFormat: "Y-m-d H:i",
+      minDate: "today", 
+      altInput: true,
+      altFormat: "F j, Y h:i K",
+      appendTo: document.getElementById('adminPanel')
+    });
+  };
+
+  /**
+   * Generates a unique ID (similar to UUID) for sessions or users.
+   * This is a fallback and does not guarantee global uniqueness without a backend.
+   * @returns {string} A unique identifier.
+   */
+  function generateUniqueId() {
+      if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+          return crypto.randomUUID();
+      }
+      return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+  }
+
+  /**
+   * Handles admin panel login.
+   * (INSECURE - for demo only)
+   */
+  window.adminLogin = function() {
+    const enteredPassword = document.getElementById("adminPasswordInput").value;
+    if (enteredPassword === adminPassword) {
+      document.getElementById("adminLoginBox").style.display = "none";
+      document.getElementById("adminPanel").style.display = "block";
+      loadKeys(); // Load keys once logged in
+    } else {
+      alert("Incorrect Admin Password.");
+    }
+  }
+
+  /**
+   * Handles admin panel logout.
+   */
+  window.adminLogout = function() {
+    document.getElementById("adminPanel").style.display = "none";
+    document.getElementById("adminLoginBox").style.display = "block";
+    document.getElementById("adminPasswordInput").value = ""; // Clear password field
+    keysRef.off('value'); // Detach Firebase listener on logout
+  }
+
+  /**
+   * Generates a random key and populates the input field.
+   */
+  window.generateRandomKey = function() {
+      document.getElementById("newKeyInput").value = generateUniqueId().substring(0, 10).toUpperCase();
+  }
+
+  /**
+   * Creates a new access key and saves it to Firebase.
+   */
+  window.createNewKey = async function() {
+      const newKeyInput = document.getElementById("newKeyInput");
+      const expiryDate = expiryFlatpickr.selectedDates[0];
+      const deviceLimit = document.getElementById("deviceLimitSelect").value;
+
+      if (!expiryDate) {
+          alert("Please select an expiry date.");
+          return;
+      }
+
+      const key = newKeyInput.value.trim() || generateUniqueId().substring(0, 10).toUpperCase();
+      const expiryTimestamp = expiryDate.getTime();
+
+      try {
+          await keysRef.child(key).set({
+              expiry: expiryTimestamp,
+              deviceLimit: deviceLimit,
+              userUid: null // Initially no user associated
+          });
+          alert(`Key "${key}" created successfully!`);
+          newKeyInput.value = ""; 
+          expiryFlatpickr.clear(); 
+      } catch (error) {
+          console.error("Error creating key:", error);
+          alert("Failed to create key. See console for details.");
+      }
+  }
+
+  /**
+   * Loads all keys from Firebase and displays them in the table.
+   */
+  function loadKeys() {
+      const keysTableBody = document.getElementById("keysTableBody");
+      keysTableBody.innerHTML = '<tr><td colspan="5">Loading keys...</td></tr>'; // Show loading
+
+      keysRef.on('value', (snapshot) => {
+          const keys = snapshot.val();
+          keysTableBody.innerHTML = ''; // Clear existing rows
+
+          if (!keys) {
+              keysTableBody.innerHTML = '<tr><td colspan="5">No keys generated yet.</td></tr>';
+              return;
+          }
+
+          Object.entries(keys).forEach(([key, data]) => {
+              const row = keysTableBody.insertRow();
+              const expiryDate = new Date(data.expiry);
+              const formattedExpiry = expiryFlatpickr.formatDate(expiryDate, "Y-m-d H:i");
+
+              row.insertCell(0).textContent = key;
+              row.insertCell(1).textContent = formattedExpiry;
+              row.insertCell(2).textContent = data.deviceLimit === 'single' ? '1 Device' : 'All Devices';
+              row.insertCell(3).textContent = data.userUid || 'N/A';
+
+              const actionsCell = row.insertCell(4);
+              actionsCell.className = 'action-buttons';
+
+              const copyBtn = document.createElement('button');
+              copyBtn.className = 'copy-btn';
+              copyBtn.innerHTML = '<i class="ri-file-copy-line ri-icon"></i> Copy';
+              copyBtn.onclick = () => copyKey(key);
+              actionsCell.appendChild(copyBtn);
+
+              const resetBtn = document.createElement('button');
+              resetBtn.className = 'reset-btn';
+              resetBtn.innerHTML = '<i class="ri-refresh-line ri-icon"></i> Reset Session';
+              resetBtn.onclick = () => resetKeySession(key, data.userUid, data.deviceLimit);
+              resetBtn.disabled = !data.userUid; // Disable if no user is associated
+              actionsCell.appendChild(resetBtn);
+
+              const deleteBtn = document.createElement('button');
+              deleteBtn.className = 'delete-btn';
+              deleteBtn.innerHTML = '<i class="ri-delete-bin-line ri-icon"></i> Delete';
+              deleteBtn.onclick = () => deleteKey(key, data.userUid);
+              actionsCell.appendChild(deleteBtn);
+          });
+      }, (error) => {
+          console.error("Error loading keys:", error);
+          keysTableBody.innerHTML = '<tr><td colspan="5" style="color: red;">Error loading keys.</td></tr>';
+      });
+  }
+
+  /**
+   * Copies a given key string to the clipboard.
+   */
+  window.copyKey = function(key) {
+      const el = document.createElement('textarea');
+      el.value = key;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      alert(`Key "${key}" copied to clipboard!`);
+  }
+
+  /**
+   * Resets the session for a specific key's associated user.
+   * This involves clearing the user's current session for that key.
+   */
+  window.resetKeySession = async function(key, associatedUid, allowedDevices) {
+      if (!confirm(`Are you sure you want to reset the session for key "${key}"? This will log out the associated user.`)) {
+          return;
+      }
+
+      try {
+          if (associatedUid) {
+              await userSessionsRef.child(associatedUid).remove(); // Clear all sessions for this UID
+              await keysRef.child(key).update({ userUid: null }); // Disassociate key from user
+              alert(`Session for key "${key}" and user "${associatedUid}" has been reset.`);
+          } else {
+              alert("No user is currently associated with this key to reset its session.");
+          }
+      } catch (error) {
+          console.error("Error resetting key session:", error);
+          alert("Failed to reset key session. See console for details.");
+      }
+  }
+
+  /**
+   * Deletes a key from Firebase and also attempts to clear any associated user session.
+   */
+  window.deleteKey = async function(key, associatedUid) {
+      if (!confirm(`Are you sure you want to delete key "${key}"? This action cannot be undone.`)) {
+          return;
+      }
+
+      try {
+          await keysRef.child(key).remove(); // Delete the key
+
+          if (associatedUid) {
+              // Also attempt to clear the user session associated with this key, if any
+              await userSessionsRef.child(associatedUid).remove();
+              console.log(`Associated user session for UID ${associatedUid} also cleared.`);
+          }
+          alert(`Key "${key}" deleted successfully.`);
+      } catch (error) {
+          console.error("Error deleting key:", error);
+          alert("Failed to delete key. See console for details.");
+      }
+  }
+</script>
+
+</body>
+</html>
